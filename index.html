@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xingyu Lu | Personal Portfolio</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#161B33',
+            secondary: '#00F5D4',
+            accent: '#7209B7',
+            dark: '#0D1117',
+            light: '#E6E8E6'
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            glow: {
+              '0%': { textShadow: '0 0 5px rgba(0, 245, 212, 0.5)' },
+              '100%': { textShadow: '0 0 20px rgba(0, 245, 212, 0.8), 0 0 30px rgba(0, 245, 212, 0.6)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 0 8px rgba(0, 245, 212, 0.6);
+      }
+      .bg-glass {
+        background: rgba(22, 27, 51, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .border-glow {
+        box-shadow: 0 0 5px rgba(0, 245, 212, 0.5), inset 0 0 5px rgba(0, 245, 212, 0.2);
+      }
+      .animate-typewriter {
+        animation: typewriter 4s steps(40) 1s 1 normal both,
+                  blinkTextCursor 500ms steps(40) infinite normal;
+      }
+      @keyframes typewriter {
+        from { width: 0; }
+        to { width: 24em; }
+      }
+      @keyframes blinkTextCursor {
+        from { border-right-color: rgba(0, 245, 212, 0.75); }
+        to { border-right-color: transparent; }
+      }
+    }
+  </style>
+</head>
+<body class="bg-primary text-light font-inter overflow-x-hidden">
+  <!-- Particle Background -->
+  <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0 opacity-30"></div>
+  
+  <!-- Navigation Bar -->
+  <nav class="bg-glass border-b border-secondary/30 fixed w-full z-50 transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="text-secondary font-bold text-xl flex items-center">
+        <span class="animate-pulse-slow mr-2"><i class="fa fa-user"></i></span>
+        Xingyu Lu
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex space-x-8">
+        <a href="#about" class="hover:text-secondary transition-colors duration-300">About</a>
+        <a href="#research" class="hover:text-secondary transition-colors duration-300">Research</a>
+        <a href="#projects" class="hover:text-secondary transition-colors duration-300">Projects</a>
+        <a href="#publications" class="hover:text-secondary transition-colors duration-300">Publications</a>
+        <a href="#contact" class="hover:text-secondary transition-colors duration-300">Contact</a>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-secondary text-2xl" id="menu-toggle">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="md:hidden bg-primary border-t border-secondary/30 absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none" id="mobile-menu">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="#about" class="hover:text-secondary transition-colors duration-300 py-2">About</a>
+        <a href="#research" class="hover:text-secondary transition-colors duration-300 py-2">Research</a>
+        <a href="#projects" class="hover:text-secondary transition-colors duration-300 py-2">Projects</a>
+        <a href="#publications" class="hover:text-secondary transition-colors duration-300 py-2">Publications</a>
+        <a href="#contact" class="hover:text-secondary transition-colors duration-300 py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="relative z-10">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <div class="container mx-auto px-4 py-20 text-center">
+        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-white mb-4 animate-glow">
+          Xingyu Lu
+        </h1>
+        <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-secondary mb-8 max-w-3xl mx-auto">
+          <span class="border-r-2 border-secondary/75 px-1">Biomedical Engineering</span> × 
+          <span class="border-r-2 border-secondary/75 px-1">AI Research</span> × 
+          <span class="px-1">Software Development</span>
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+          <a href="#projects" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+            <i class="fa fa-cubes mr-2"></i> View Projects
+          </a>
+          <a href="#publications" class="bg-transparent hover:bg-white/10 text-white border border-white/30 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+            <i class="fa fa-file-text-o mr-2"></i> Read Publications
+          </a>
+          <a href="#contact" class="bg-transparent hover:bg-accent/30 text-accent border border-accent/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+            <i class="fa fa-envelope-o mr-2"></i> Contact Me
+          </a>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <a href="#about" class="text-secondary/70 hover:text-secondary transition-colors duration-300">
+            <i class="fa fa-angle-down text-3xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Background Decorations -->
+      <div class="absolute -left-20 -top-20 w-60 h-60 bg-secondary/20 rounded-full filter blur-3xl"></div>
+      <div class="absolute right-10 bottom-10 w-80 h-80 bg-accent/20 rounded-full filter blur-3xl"></div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-dark/50 relative">
+      <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+          <span class="text-secondary">About</span> Me
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Personal Info Card -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="text-center mb-6">
+              <div class="w-40 h-40 mx-auto relative">
+                <div class="absolute inset-0 bg-secondary/20 rounded-full animate-pulse-slow"></div>
+                <img src="https://picsum.photos/seed/xingyu/200/200" alt="Photo of Xingyu Lu" class="w-40 h-40 object-cover rounded-full relative z-10 border-4 border-primary">
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">Xingyu Lu</h3>
+              <p class="text-secondary/80">Undergraduate Student | Biomedical Engineering</p>
+              <p class="text-light/70 mt-2">Zhejiang University, Hangzhou, China</p>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-graduation-cap"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">B.Eng. Candidate</p>
+                  <p class="font-medium">Biomedical Engineering</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-flag"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">GPA</p>
+                  <p class="font-medium">3.71/4.3 (Top 10%)</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">Expected Graduation</p>
+                  <p class="font-medium">June 2026</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-lightbulb-o"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">Research Interests</p>
+                  <p class="font-medium">LLMs, Agent, 强化学习, 计算机图形学, 医学影像分析, Healthcare</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Research Timeline -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+              <i class="fa fa-history text-secondary mr-2"></i> Academic Journey
+            </h3>
+            
+            <div class="space-y-8 relative">
+              <!-- Timeline Line -->
+              <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-secondary/20"></div>
+              
+              <!-- Timeline Point 1 -->
+              <div class="flex">
+                <div class="relative mr-4">
+                  <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary font-bold z-10 relative">
+                    1
+                  </div>
+                  <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">Undergraduate Studies</h4>
+                  <p class="text-secondary/80 text-sm">Sep 2022 - Present</p>
+                  <p class="text-light/70 mt-2">Biomedical Engineering at Zhejiang University with a focus on Medical Image Analysis and AI in Healthcare.</p>
+                </div>
+              </div>
+              
+              <!-- Timeline Point 2 -->
+              <div class="flex">
+                <div class="relative mr-4">
+                  <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary font-bold z-10 relative">
+                    2
+                  </div>
+                  <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">MBTI Personality Prediction Research</h4>
+                  <p class="text-secondary/80 text-sm">Mar 2024 - Present</p>
+                  <p class="text-light/70 mt-2">Developed a BERT-transformer model achieving state-of-the-art results in MBTI classification under Prof. Nai Ding.</p>
+                </div>
+              </div>
+              
+              <!-- Timeline Point 3 -->
+              <div class="flex">
+                <div class="relative mr-4">
+                  <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary font-bold z-10 relative">
+                    3
+                  </div>
+                  <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">fMRI Alzheimer’s Research</h4>
+                  <p class="text-secondary/80 text-sm">Dec 2024 - Present</p>
+                  <p class="text-light/70 mt-2">Working on lightweight fMRI preprocessing pipelines and analysis of cerebrovascular reactivity under Prof. Zixuan Lin.</p>
+                </div>
+              </div>
+              
+              <!-- Timeline Point 4 -->
+              <div class="flex">
+                <div class="relative mr-4">
+                  <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary font-bold z-10 relative">
+                    4
+                  </div>
+                  <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-white">RLCAD Research Project</h4>
+                  <p class="text-secondary/80 text-sm">Oct 2024 - Jun 2025</p>
+                  <p class="text-light/70 mt-2">Developed reinforcement learning environment for CAD command generation under Prof. Peng Du and Prof. Min Tang.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Research Experience Section -->
+    <section id="research" class="py-20 relative">
+      <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+          <span class="text-secondary">Research</span> Experience
+        </h2>
+        
+        <div class="grid grid-cols-1 gap-8">
+          <!-- Research Item 1 -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">MBTI Predictor Based on User Produced Content</h3>
+              <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                Mar 2024 - Present
+              </span>
+            </div>
+            <p class="text-light/70 mb-4">
+              Advisor: Prof. Nai Ding, China National University Student Innovation & Entrepreneurship Development Program
+            </p>
+            <ul class="list-disc pl-5 text-light/70 space-y-2">
+              <li>Obtained national level project approval (top 10%).</li>
+              <li>Integrated a large-scale text-MBTI dataset and developed a seq2seq model based on hybrid BERT-Transformer architecture.</li>
+              <li>Achieved state-of-the-art F1-score of 84.31 in MBTI personality classification benchmarks, outperforming previous SOTA by 1.49%.</li>
+            </ul>
+          </div>
+          
+          <!-- Research Item 2 -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">fMRI-Based Alzheimer’s Prevention</h3>
+              <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                Dec 2024 - Present
+              </span>
+            </div>
+            <p class="text-light/70 mb-4">
+              Advisor: Prof. Zixuan Lin, Key Lab for Biomedical Engineering of Ministry of Education, Zhejiang University
+            </p>
+            <ul class="list-disc pl-5 text-light/70 space-y-2">
+              <li>Developed a lightweight fMRI preprocessing pipeline that can achieve BOLD-to-T1w-to-MNI152 registration with high-quality control protocols.</li>
+              <li>Currently designing and conducting analysis experiments on the correlation between Cerebrovascular reactivity (CVR) and cognition.</li>
+            </ul>
+          </div>
+          
+          <!-- Research Item 3 -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">RLCAD: RL-Based Gym for CAD Command Sequence Generation</h3>
+              <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                Oct 2024 - Jun 2025
+              </span>
+            </div>
+            <p class="text-light/70 mb-4">
+              Advisor: Prof. Peng Du, Prof. Min Tang & Prof. Ruofeng Tong, the State Key Laboratory of CAD&CG, Zhejiang University
+            </p>
+            <ul class="list-disc pl-5 text-light/70 space-y-2">
+              <li>Built an RL training environment (gym) on a CAD geometric engine with cross-modal policy network and dual attention mechanisms.</li>
+              <li>Generated actions from input B-Rep geometries, achieving SOTA in command-sequence generation with 39X efficiency improvement over previous gym.</li>
+              <li>Supports additional revolution operations compared to previous work.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Publications Section -->
+    <section id="publications" class="py-20 bg-dark/50 relative">
+      <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+          <span class="text-secondary">Publications</span> & Preprints
+        </h2>
+        
+        <div class="grid grid-cols-1 gap-8">
+          <!-- Publication Item 1 -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">RLCAD: Reinforcement Learning Training Gym for Revolution Involved CAD Command Sequence Generation</h3>
+              <span class="bg-green-500/20 text-green-400 text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                Under Review
+              </span>
+            </div>
+            <p class="text-secondary/80 mb-2">
+              Yin, X., Lu, X., Shen, J., Ni, J., Li, H., Tong, R., Tang, M., & Du, P.
+            </p>
+            <p class="text-light/70 mb-4">
+              arXiv preprint arXiv:2503.18549. Submitted to Computer-Aided Design.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <a href="https://arxiv.org/abs/2503.18549" target="_blank" class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center">
+                <i class="fa fa-file-pdf-o mr-2"></i> arXiv
+              </a>
+              <button class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center abstract-toggle" data-target="abstract-1">
+                <i class="fa fa-chevron-down mr-2"></i> Abstract
+              </button>
+            </div>
+            <div class="mt-4 pt-4 border-t border-secondary/20 hidden" id="abstract-1">
+              <p class="text-light/80 italic">
+                This paper presents RLCAD, a novel reinforcement learning framework for generating CAD command sequences from B-Rep geometries. Our method introduces a cross-modal policy network with dual attention mechanisms that learn to generate optimal command sequences by leveraging both geometric and topological features. Experiments demonstrate that RLCAD outperforms state-of-the-art methods in both command sequence generation accuracy and computational efficiency, achieving a 39X speedup over previous approaches. The framework supports a wider range of CAD operations, including revolution operations, making it suitable for more complex geometric modeling tasks.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Publication Item 2 (Placeholder) -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">MBTI Personality Type Prediction from Social Media Text Using Hybrid BERT-Transformer Architecture</h3>
+              <span class="bg-blue-500/20 text-blue-400 text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                In Preparation
+              </span>
+            </div>
+            <p class="text-secondary/80 mb-2">
+              Lu, X., Ding, N.
+            </p>
+            <p class="text-light/70 mb-4">
+              Manuscript in preparation for submission to Journal of Artificial Intelligence in Medicine.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <button class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center" disabled>
+                <i class="fa fa-file-pdf-o mr-2"></i> PDF (Coming Soon)
+              </button>
+            </div>
+          </div>
+          
+          <!-- Publication Item 3 (Placeholder) -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">Lightweight fMRI Preprocessing Pipeline for Alzheimer’s Disease Detection</h3>
+              <span class="bg-blue-500/20 text-blue-400 text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                In Preparation
+              </span>
+            </div>
+            <p class="text-secondary/80 mb-2">
+              Lu, X., Lin, Z., et al.
+            </p>
+            <p class="text-light/70 mb-4">
+              Manuscript in preparation for submission to NeuroImage: Clinical.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <button class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center" disabled>
+                <i class="fa fa-file-pdf-o mr-2"></i> PDF (Coming Soon)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+      <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+          <span class="text-secondary">Selected</span> Projects
+        </h2>
+        
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Project Card 1 -->
+          <div class="project-card group" data-category="medical">
+            <div class="bg-glass border border-secondary/30 rounded-xl overflow-hidden transform hover:translate-y-[-8px] transition-all duration-500 hover:border-secondary/60">
+              <div class="relative overflow-hidden">
+                <img src="https://picsum.photos/seed/boneage/600/400" alt="Bone Age Estimation Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 p-4">
+                  <span class="bg-secondary/90 text-primary text-xs font-bold px-3 py-1 rounded-full">Deep Learning</span>
+                  <span class="bg-accent/90 text-white text-xs font-bold px-3 py-1 rounded-full ml-2">Medical Imaging</span>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300">End-to-End Bone Age Estimation</h3>
+                <p class="text-light/70 mb-4">Developed an end-to-end model for bone age prediction using Dinov2, achieving MAE of 7 months. Ranked top 5% in Biomedical Image Processing course.</p>
+                
+                <div class="flex justify-between items-center">
+                  <div class="flex -space-x-2">
+                    <img src="https://picsum.photos/seed/team1/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
+                  </div>
+                  
+                  <a href="#" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
+                    View Details <i class="fa fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Project Card 2 -->
+          <div class="project-card group" data-category="hardware">
+            <div class="bg-glass border border-secondary/30 rounded-xl overflow-hidden transform hover:translate-y-[-8px] transition-all duration-500 hover:border-secondary/60">
+              <div class="relative overflow-hidden">
+                <img src="https://picsum.photos/seed/esp32/600/400" alt="Visually Impaired Guide System Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 p-4">
+                  <span class="bg-secondary/90 text-primary text-xs font-bold px-3 py-1 rounded-full">Embedded System</span>
+                  <span class="bg-accent/90 text-white text-xs font-bold px-3 py-1 rounded-full ml-2">IoT</span>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300">Multimodal Guide System for Visually Impaired</h3>
+                <p class="text-light/70 mb-4">Built a voice-interactive navigation system using ESP32-S3, combining camera and ultrasonic sensors with vision-language models for obstacle detection.</p>
+                
+                <div class="flex justify-between items-center">
+                  <div class="flex -space-x-2">
+                    <img src="https://picsum.photos/seed/team2/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
+                    <img src="https://picsum.photos/seed/team3/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
+                  </div>
+                  
+                  <a href="#" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
+                    View Details <i class="fa fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark/50 relative">
+      <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+          <span class="text-secondary">Get in</span> Touch
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Contact Info -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+              <i class="fa fa-paper-plane text-secondary mr-2"></i> Contact Information
+            </h3>
+            
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-envelope-o"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">Email</p>
+                  <p class="font-medium">xingyulu@zju.edu.cn</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-phone"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">Phone</p>
+                  <p class="font-medium">H (+86) 19550104578</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-map-marker"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">Location</p>
+                  <p class="font-medium">Zhejiang University, Hangzhou, China</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-weixin"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-light/70">WeChat</p>
+                  <p class="font-medium">xingyulu_987</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Social Media Links -->
+            <div class="mt-8">
+              <h4 class="text-lg font-bold text-white mb-4">Connect with Me</h4>
+              <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                  <i class="fa fa-github"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                  <i class="fa fa-twitter"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                  <i class="fa fa-weixin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contact Form -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+              <i class="fa fa-comment text-secondary mr-2"></i> Send Me a Message
+            </h3>
+            
+            <form id="contact-form">
+              <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-light/80 mb-1">Your Name</label>
+                <input type="text" id="name" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light" placeholder="Enter your name">
+              </div>
+              
+              <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-light/80 mb-1">Your Email</label>
+                <input type="email" id="email" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light" placeholder="Enter your email">
+              </div>
+              
+              <div class="mb-4">
+                <label for="subject" class="block text-sm font-medium text-light/80 mb-1">Subject</label>
+                <input type="text" id="subject" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light" placeholder="Enter subject">
+              </div>
+              
+              <div class="mb-6">
+                <label for="message" class="block text-sm font-medium text-light/80 mb-1">Message</label>
+                <textarea id="message" rows="5" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light resize-none" placeholder="Enter your message"></textarea>
+              </div>
+              
+              <button type="submit" class="w-full bg-secondary hover:bg-secondary/80 text-primary font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
+                <i class="fa fa-paper-plane mr-2"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="bg-dark py-10 border-t border-secondary/30">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-light/70">© 2025 Xingyu Lu. All rights reserved.</p>
+      <p class="text-light/50 text-sm mt-2">Designed with <i class="fa fa-heart text-secondary"></i> and <span class="text-secondary">Tailwind CSS</span></p>
+    </div>
+  </footer>
+  
+  <!-- JavaScript -->
+  <script>
+    // Initialize particles.js
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      menuToggle.addEventListener('click', function() {
+        if (mobileMenu.classList.contains('opacity-0')) {
+          mobileMenu.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+          mobileMenu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          menuToggle.innerHTML = '<i class="fa fa-times"></i>';
+        } else {
+          mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+          mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          menuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+        }
+      });
+      
+      // Close mobile menu when clicking on a link
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+          mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          menuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+        });
+      });
+      
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          navbar.classList.add('py-2');
+          navbar.classList.remove('py-3');
+        } else {
+          navbar.classList.add('py-3');
+          navbar.classList.remove('py-2');
+        }
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Project filter
+      const filterButtons = document.querySelectorAll('.project-filter');
+      const projectCards = document.querySelectorAll('.project-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => {
+            btn.classList.remove('bg-secondary', 'text-primary');
+            btn.classList.add('bg-dark/50', 'text-light');
+          });
+          
+          // Add active class to clicked button
+          this.classList.remove('bg-dark/50', 'text-light');
+          this.classList.add('bg-secondary', 'text-primary');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          projectCards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Abstract toggle
+      const abstractToggles = document.querySelectorAll('.abstract-toggle');
+      abstractToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement.classList.contains('hidden')) {
+            targetElement.classList.remove('hidden');
+            this.innerHTML = '<i class="fa fa-chevron-up mr-2"></i> Hide Abstract';
+          } else {
+            targetElement.classList.add('hidden');
+            this.innerHTML = '<i class="fa fa-chevron-down mr-2"></i> Show Abstract';
+          }
+        });
+      });
+      
+      // Skills chart
+      const ctx = document.getElementById('skillsChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: [
+              'Python',
+              'Deep Learning',
+              'Medical Imaging',
+              'Reinforcement Learning',
+              'Computer Vision',
+              'NLP',
+              'Web Development'
+            ],
+            datasets: [{
+              label: 'Skill Level',
+              data: [90, 85, 80, 75, 85, 70, 65],
+              backgroundColor: 'rgba(0, 245, 212, 0.2)',
+              borderColor: '#00F5D4',
+              borderWidth: 2,
+              pointBackgroundColor: '#00F5D4',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: '#00F5D4'
+            }]
+          },
+          options: {
+            scales: {
+              r: {
+                angleLines: {
+                  color: 'rgba(255, 255, 255, 0.1)'
+                },
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)'
+                },
+                pointLabels: {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  font: {
+                    size: 12
+                  }
+                },
+                ticks: {
+                  backdropColor: 'transparent',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  font: {
+                    size: 10
+                  }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false
+              }
+            }
+          }
+        });
+      }
+      
+      // Contact form submission
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Here you would typically send the form data to a server
+          // For demonstration purposes, we'll just show a success message
+          const submitButton = this.querySelector('button[type="submit"]');
+          const originalText = submitButton.innerHTML;
+          
+          submitButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> Sending...';
+          submitButton.disabled = true;
+          
+          // Simulate form submission
+          setTimeout(() => {
+            submitButton.innerHTML = '<i class="fa fa-check mr-2"></i> Message Sent!';
+            setTimeout(() => {
+              submitButton.innerHTML = originalText;
+              submitButton.disabled = false;
+              contactForm.reset();
+            }, 2000);
+          }, 1500);
+        });
+      }
+      
+      // Initialize particles.js
+      if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+          particles: {
+            number: {
+              value: 80,
+              density: {
+                enable: true,
+                value_area: 800
+              }
+            },
+            color: {
+              value: '#00F5D4'
+            },
+            shape: {
+              type: 'circle',
+              stroke: {
+                width: 0,
+                color: '#000000'
+              }
+            },
+            opacity: {
+              value: 0.5,
+              random: false,
+              anim: {
+                enable: false,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false
+              }
+            },
+            size: {
+              value: 3,
+              random: true,
+              anim: {
+                enable: false,
+                speed: 40,
+                size_min: 0.1,
+                sync: false
+              }
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: '#00F5D4',
+              opacity: 0.4,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 6,
+              direction: 'none',
+              random: false,
+              straight: false,
+              out_mode: 'out',
+              bounce: false,
+              attract: {
+                enable: false,
+                rotateX: 600,
+                rotateY: 1200
+              }
+            }
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: {
+              onhover: {
+                enable: true,
+                mode: 'repulse'
+              },
+              onclick: {
+                enable: true,
+                mode: 'push'
+              },
+              resize: true
+            },
+            modes: {
+              grab: {
+                distance: 400,
+                line_linked: {
+                  opacity: 1
+                }
+              },
+              bubble: {
+                distance: 400,
+                size: 40,
+                duration: 2,
+                opacity: 8,
+                speed: 3
+              },
+              repulse: {
+                distance: 200,
+                duration: 0.4
+              },
+              push: {
+                particles_nb: 4
+              },
+              remove: {
+                particles_nb: 2
+              }
+            }
+          },
+          retina_detect: true
+        });
+      }
+    });
+  </script>
+</body>
+</html>
