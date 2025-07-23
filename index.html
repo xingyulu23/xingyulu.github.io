@@ -18,11 +18,11 @@
       theme: {
         extend: {
           colors: {
-            primary: '#161B33',
-            secondary: '#00F5D4',
-            accent: '#7209B7',
-            dark: '#0D1117',
-            light: '#E6E8E6'
+            primary: 'var(--color-primary)',
+            secondary: 'var(--color-secondary)',
+            accent: 'var(--color-accent)',
+            dark: 'var(--color-dark)',
+            light: 'var(--color-light)'
           },
           fontFamily: {
             inter: ['Inter', 'sans-serif'],
@@ -39,8 +39,8 @@
               '50%': { transform: 'translateY(-10px)' }
             },
             glow: {
-              '0%': { textShadow: '0 0 5px rgba(0, 245, 212, 0.5)' },
-              '100%': { textShadow: '0 0 20px rgba(0, 245, 212, 0.8), 0 0 30px rgba(0, 245, 212, 0.6)' }
+              '0%': { textShadow: '0 0 5px var(--color-secondary)' },
+              '100%': { textShadow: '0 0 20px var(--color-secondary), 0 0 30px var(--color-secondary)' }
             }
           }
         }
@@ -48,20 +48,39 @@
     }
   </script>
   <style type="text/tailwindcss">
+    @layer base {
+      :root {
+        --color-primary: #161B33;
+        --color-secondary: #00F5D4;
+        --color-accent: #7209B7;
+        --color-dark: #0D1117;
+        --color-light: #E6E8E6;
+      }
+      html.light-mode {
+        --color-primary: #F9FAFB;
+        --color-secondary: #4f46e5;
+        --color-accent: #db2777;
+        --color-dark: #F3F4F6;
+        --color-light: #111827;
+      }
+    }
     @layer utilities {
       .content-auto {
         content-visibility: auto;
       }
       .text-shadow {
-        text-shadow: 0 0 8px rgba(0, 245, 212, 0.6);
+        text-shadow: 0 0 8px var(--color-secondary);
       }
       .bg-glass {
         background: rgba(22, 27, 51, 0.7);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
       }
+      html.light-mode .bg-glass {
+        background: rgba(243, 244, 246, 0.7);
+      }
       .border-glow {
-        box-shadow: 0 0 5px rgba(0, 245, 212, 0.5), inset 0 0 5px rgba(0, 245, 212, 0.2);
+        box-shadow: 0 0 5px var(--color-secondary), inset 0 0 5px var(--color-secondary);
       }
       .animate-typewriter {
         animation: typewriter 4s steps(40) 1s 1 normal both,
@@ -72,31 +91,30 @@
         to { width: 24em; }
       }
       @keyframes blinkTextCursor {
-        from { border-right-color: rgba(0, 245, 212, 0.75); }
+        from { border-right-color: var(--color-secondary); }
         to { border-right-color: transparent; }
       }
     }
   </style>
 </head>
-<body class="bg-primary text-light font-inter overflow-x-hidden">
+<body class="text-light font-inter overflow-x-hidden" style="background-color: var(--color-primary);">
   <!-- Particle Background -->
-  <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0 opacity-30"></div>
+  <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0 opacity-40"></div>
   
   <!-- Navigation Bar -->
   <nav class="bg-glass border-b border-secondary/30 fixed w-full z-50 transition-all duration-300" id="navbar">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="#" class="text-secondary font-bold text-xl flex items-center">
-        <span class="animate-pulse-slow mr-2"><i class="fa fa-user"></i></span>
-        Xingyu Lu
-      </a>
+      <div></div>
       
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex space-x-8">
+      <div class="hidden md:flex space-x-8 items-center">
         <a href="#about" class="hover:text-secondary transition-colors duration-300">About</a>
         <a href="#research" class="hover:text-secondary transition-colors duration-300">Research</a>
         <a href="#projects" class="hover:text-secondary transition-colors duration-300">Projects</a>
         <a href="#publications" class="hover:text-secondary transition-colors duration-300">Publications</a>
         <a href="#contact" class="hover:text-secondary transition-colors duration-300">Contact</a>
+        <button id="theme-toggle" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+          <i class="fa fa-moon-o"></i>
+        </button>
       </div>
       
       <!-- Mobile Menu Button -->
@@ -106,13 +124,18 @@
     </div>
     
     <!-- Mobile Navigation Menu -->
-    <div class="md:hidden bg-primary border-t border-secondary/30 absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none" id="mobile-menu">
+    <div class="md:hidden border-t border-secondary/30 absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none" id="mobile-menu" style="background-color: var(--color-primary);">
       <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
         <a href="#about" class="hover:text-secondary transition-colors duration-300 py-2">About</a>
         <a href="#research" class="hover:text-secondary transition-colors duration-300 py-2">Research</a>
         <a href="#projects" class="hover:text-secondary transition-colors duration-300 py-2">Projects</a>
         <a href="#publications" class="hover:text-secondary transition-colors duration-300 py-2">Publications</a>
         <a href="#contact" class="hover:text-secondary transition-colors duration-300 py-2">Contact</a>
+        <div class="flex items-center justify-center py-2">
+          <button id="mobile-theme-toggle" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+            <i class="fa fa-moon-o"></i>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
@@ -122,7 +145,7 @@
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div class="container mx-auto px-4 py-20 text-center">
-        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-white mb-4 animate-glow">
+        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-4 text-light dark:animate-glow">
           Xingyu Lu
         </h1>
         <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-secondary mb-8 max-w-3xl mx-auto">
@@ -134,10 +157,10 @@
           <a href="#projects" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
             <i class="fa fa-cubes mr-2"></i> View Projects
           </a>
-          <a href="#publications" class="bg-transparent hover:bg-white/10 text-white border border-white/30 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+          <a href="#publications" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
             <i class="fa fa-file-text-o mr-2"></i> Read Publications
           </a>
-          <a href="#contact" class="bg-transparent hover:bg-accent/30 text-accent border border-accent/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+          <a href="#contact" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
             <i class="fa fa-envelope-o mr-2"></i> Contact Me
           </a>
         </div>
@@ -156,9 +179,11 @@
     </section>
     
     <!-- About Section -->
-    <section id="about" class="py-20 bg-dark/50 relative">
-      <div class="container mx-auto px-4">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+    <section id="about" class="py-20 relative">
+      <!-- Section Background Overlay -->
+      <div class="absolute inset-0 bg-dark/90 z-0"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-light mb-12 text-center">
           <span class="text-secondary">About</span> Me
         </h2>
         
@@ -168,9 +193,9 @@
             <div class="text-center mb-6">
               <div class="w-40 h-40 mx-auto relative">
                 <div class="absolute inset-0 bg-secondary/20 rounded-full animate-pulse-slow"></div>
-                <img src="https://picsum.photos/seed/xingyu/200/200" alt="Photo of Xingyu Lu" class="w-40 h-40 object-cover rounded-full relative z-10 border-4 border-primary">
+                <img src="figures/me.jpg" alt="Photo of Xingyu Lu" class="w-40 h-40 object-cover rounded-full relative z-10 border-4 border-primary">
               </div>
-              <h3 class="text-xl font-bold text-white mt-4">Xingyu Lu</h3>
+              <h3 class="text-xl font-bold text-light mt-4">Xingyu Lu</h3>
               <p class="text-secondary/80">Undergraduate Student | Biomedical Engineering</p>
               <p class="text-light/70 mt-2">Zhejiang University, Hangzhou, China</p>
             </div>
@@ -192,7 +217,7 @@
                 </div>
                 <div>
                   <p class="text-sm text-light/70">GPA</p>
-                  <p class="font-medium">3.71/4.3 (Top 10%)</p>
+                  <p class="font-medium">3.71/4.3 (83.93/100)</p>
                 </div>
               </div>
               
@@ -212,7 +237,7 @@
                 </div>
                 <div>
                   <p class="text-sm text-light/70">Research Interests</p>
-                  <p class="font-medium">LLMs, Agent, 强化学习, 计算机图形学, 医学影像分析, Healthcare</p>
+                    <p class="font-medium">LLMs, Agents, Reinforcement Learning, Computer Graphics, Medical Image Analysis, Healthcare</p>
                 </div>
               </div>
             </div>
@@ -220,7 +245,7 @@
           
           <!-- Research Timeline -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
-            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+            <h3 class="text-xl font-bold text-light mb-6 flex items-center">
               <i class="fa fa-history text-secondary mr-2"></i> Academic Journey
             </h3>
             
@@ -237,7 +262,7 @@
                   <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
                 </div>
                 <div>
-                  <h4 class="font-bold text-white">Undergraduate Studies</h4>
+                  <h4 class="font-bold text-light">Undergraduate Studies</h4>
                   <p class="text-secondary/80 text-sm">Sep 2022 - Present</p>
                   <p class="text-light/70 mt-2">Biomedical Engineering at Zhejiang University with a focus on Medical Image Analysis and AI in Healthcare.</p>
                 </div>
@@ -252,9 +277,9 @@
                   <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
                 </div>
                 <div>
-                  <h4 class="font-bold text-white">MBTI Personality Prediction Research</h4>
-                  <p class="text-secondary/80 text-sm">Mar 2024 - Present</p>
-                  <p class="text-light/70 mt-2">Developed a BERT-transformer model achieving state-of-the-art results in MBTI classification under Prof. Nai Ding.</p>
+                  <h4 class="font-bold text-light">Research Assistant</h4>
+                  <p class="text-secondary/80 text-sm">Sep 2023 - Jun 2025</p>
+                  <p class="text-light/70 mt-2">RA at Key Lab for Biomedical Engineering, Zhejiang University. Assisted in photoacoustic imaging and fMRI processing analysis.</p>
                 </div>
               </div>
               
@@ -267,24 +292,9 @@
                   <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
                 </div>
                 <div>
-                  <h4 class="font-bold text-white">fMRI Alzheimer’s Research</h4>
-                  <p class="text-secondary/80 text-sm">Dec 2024 - Present</p>
-                  <p class="text-light/70 mt-2">Working on lightweight fMRI preprocessing pipelines and analysis of cerebrovascular reactivity under Prof. Zixuan Lin.</p>
-                </div>
-              </div>
-              
-              <!-- Timeline Point 4 -->
-              <div class="flex">
-                <div class="relative mr-4">
-                  <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary font-bold z-10 relative">
-                    4
-                  </div>
-                  <div class="absolute inset-0 bg-secondary/30 rounded-full transform scale-150 animate-pulse-slow"></div>
-                </div>
-                <div>
-                  <h4 class="font-bold text-white">RLCAD Research Project</h4>
-                  <p class="text-secondary/80 text-sm">Oct 2024 - Jun 2025</p>
-                  <p class="text-light/70 mt-2">Developed reinforcement learning environment for CAD command generation under Prof. Peng Du and Prof. Min Tang.</p>
+                  <h4 class="font-bold text-light">Research on LLMs & Graphics</h4>
+                  <p class="text-secondary/80 text-sm">Nov 2024 - Present</p>
+                  <p class="text-light/70 mt-2">At the State Key Lab of CAD&CG, Zhejiang University, focusing on LLMs, computer graphics, and CAD reconstruction.</p>
                 </div>
               </div>
             </div>
@@ -296,7 +306,7 @@
     <!-- Research Experience Section -->
     <section id="research" class="py-20 relative">
       <div class="container mx-auto px-4">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-light mb-12 text-center">
           <span class="text-secondary">Research</span> Experience
         </h2>
         
@@ -304,42 +314,22 @@
           <!-- Research Item 1 -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-white">MBTI Predictor Based on User Produced Content</h3>
+              <h3 class="text-xl font-bold text-light">Generative CAD with Large Language Models and Agents</h3>
               <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
-                Mar 2024 - Present
+                Apr 2025 - Present
               </span>
             </div>
             <p class="text-light/70 mb-4">
-              Advisor: Prof. Nai Ding, China National University Student Innovation & Entrepreneurship Development Program
+              Advisor: Prof. Peng Du, Prof. Min Tang & Prof. Ruofeng Tong, the State Key Laboratory of CAD&CG, Zhejiang University
             </p>
             <ul class="list-disc pl-5 text-light/70 space-y-2">
-              <li>Obtained national level project approval (top 10%).</li>
-              <li>Integrated a large-scale text-MBTI dataset and developed a seq2seq model based on hybrid BERT-Transformer architecture.</li>
-              <li>Achieved state-of-the-art F1-score of 84.31 in MBTI personality classification benchmarks, outperforming previous SOTA by 1.49%.</li>
+              <li>Focused on generating CAD models from multimodal inputs (point clouds, B-Rep, text, images, videos) by designing multimodal language models and agent systems.</li>
             </ul>
           </div>
-          
           <!-- Research Item 2 -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-white">fMRI-Based Alzheimer’s Prevention</h3>
-              <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
-                Dec 2024 - Present
-              </span>
-            </div>
-            <p class="text-light/70 mb-4">
-              Advisor: Prof. Zixuan Lin, Key Lab for Biomedical Engineering of Ministry of Education, Zhejiang University
-            </p>
-            <ul class="list-disc pl-5 text-light/70 space-y-2">
-              <li>Developed a lightweight fMRI preprocessing pipeline that can achieve BOLD-to-T1w-to-MNI152 registration with high-quality control protocols.</li>
-              <li>Currently designing and conducting analysis experiments on the correlation between Cerebrovascular reactivity (CVR) and cognition.</li>
-            </ul>
-          </div>
-          
-          <!-- Research Item 3 -->
-          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-white">RLCAD: RL-Based Gym for CAD Command Sequence Generation</h3>
+              <h3 class="text-xl font-bold text-light">RLCAD: RL-Based Gym for CAD Command Sequence Generation</h3>
               <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
                 Oct 2024 - Jun 2025
               </span>
@@ -353,14 +343,52 @@
               <li>Supports additional revolution operations compared to previous work.</li>
             </ul>
           </div>
+
+          <!-- Research Item 3 -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-light">fMRI-Based Alzheimer’s Prevention</h3>
+              <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                Dec 2024 - Present
+              </span>
+            </div>
+            <p class="text-light/70 mb-4">
+              Advisor: Prof. Zixuan Lin, Key Lab for Biomedical Engineering of Ministry of Education, Zhejiang University
+            </p>
+            <ul class="list-disc pl-5 text-light/70 space-y-2">
+              <li>Developed a lightweight fMRI preprocessing pipeline that can achieve BOLD-to-T1w-to-MNI152 registration with high-quality control protocols.</li>
+              <li>Currently designing and conducting analysis experiments on the correlation between Cerebrovascular reactivity (CVR) and cognition.</li>
+            </ul>
+          </div>
+          <!-- Research Item 4 -->
+          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-light">MBTI Predictor Based on User Produced Content</h3>
+              <span class="bg-accent/20 text-accent text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
+                Mar 2024 - Jun 2025
+              </span>
+            </div>
+            <p class="text-light/70 mb-4">
+              Advisor: Prof. Nai Ding, China National University Student Innovation & Entrepreneurship Development Program
+            </p>
+            <ul class="list-disc pl-5 text-light/70 space-y-2">
+              <li>Obtained national level project approval (top 10%).</li>
+              <li>Integrated a large-scale text-MBTI dataset and developed a seq2seq model based on hybrid BERT-Transformer architecture.</li>
+              <li>Achieved state-of-the-art F1-score of 84.31 in MBTI personality classification benchmarks, outperforming previous SOTA by 1.49%.</li>
+            </ul>
+          </div>
+          
+
         </div>
       </div>
     </section>
     
     <!-- Publications Section -->
-    <section id="publications" class="py-20 bg-dark/50 relative">
-      <div class="container mx-auto px-4">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+    <section id="publications" class="py-20 relative">
+      <!-- Section Background Overlay -->
+      <div class="absolute inset-0 bg-dark/90 z-0"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-light mb-12 text-center">
           <span class="text-secondary">Publications</span> & Preprints
         </h2>
         
@@ -368,7 +396,7 @@
           <!-- Publication Item 1 -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-white">RLCAD: Reinforcement Learning Training Gym for Revolution Involved CAD Command Sequence Generation</h3>
+              <h3 class="text-xl font-bold text-light">RLCAD: Reinforcement Learning Training Gym for Revolution Involved CAD Command Sequence Generation</h3>
               <span class="bg-green-500/20 text-green-400 text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
                 Under Review
               </span>
@@ -389,7 +417,7 @@
             </div>
             <div class="mt-4 pt-4 border-t border-secondary/20 hidden" id="abstract-1">
               <p class="text-light/80 italic">
-                This paper presents RLCAD, a novel reinforcement learning framework for generating CAD command sequences from B-Rep geometries. Our method introduces a cross-modal policy network with dual attention mechanisms that learn to generate optimal command sequences by leveraging both geometric and topological features. Experiments demonstrate that RLCAD outperforms state-of-the-art methods in both command sequence generation accuracy and computational efficiency, achieving a 39X speedup over previous approaches. The framework supports a wider range of CAD operations, including revolution operations, making it suitable for more complex geometric modeling tasks.
+                A CAD command sequence is a typical parametric design paradigm in 3D CAD systems where a model is constructed by overlaying 2D sketches with operations such as extrusion, revolution, and Boolean operations. Although there is growing academic interest in the automatic generation of command sequences, existing methods and datasets only support operations such as 2D sketching, extrusion,and Boolean operations. This limitation makes it challenging to represent more complex geometries. In this paper, we present a reinforcement learning (RL) training environment (gym) built on a CAD geometric engine. Given an input boundary representation (B-Rep) geometry, the policy network in the RL algorithm generates an action. This action, along with previously generated actions, is processed within the gym to produce the corresponding CAD geometry, which is then fed back into the policy network. The rewards, determined by the difference between the generated and target geometries within the gym, are used to update the RL network. Our method supports operations beyond sketches, Boolean, and extrusion, including revolution operations. With this training gym, we achieve state-of-the-art (SOTA) quality in generating command sequences from B-Rep geometries.
               </p>
             </div>
           </div>
@@ -397,42 +425,29 @@
           <!-- Publication Item 2 (Placeholder) -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-white">MBTI Personality Type Prediction from Social Media Text Using Hybrid BERT-Transformer Architecture</h3>
+              <h3 class="text-xl font-bold text-light">CADDesigner: Conceptual Design of CAD Models Based on General-Purpose Agent</h3>
               <span class="bg-blue-500/20 text-blue-400 text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
                 In Preparation
               </span>
             </div>
             <p class="text-secondary/80 mb-2">
-              Lu, X., Ding, N.
+              
             </p>
             <p class="text-light/70 mb-4">
-              Manuscript in preparation for submission to Journal of Artificial Intelligence in Medicine.
+              Manuscript in preparation for submission to AAAI-26.
             </p>
             <div class="flex flex-wrap gap-2">
               <button class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center" disabled>
                 <i class="fa fa-file-pdf-o mr-2"></i> PDF (Coming Soon)
               </button>
-            </div>
-          </div>
-          
-          <!-- Publication Item 3 (Placeholder) -->
-          <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 class="text-xl font-bold text-white">Lightweight fMRI Preprocessing Pipeline for Alzheimer’s Disease Detection</h3>
-              <span class="bg-blue-500/20 text-blue-400 text-sm font-medium px-3 py-1 rounded-full mt-2 md:mt-0">
-                In Preparation
-              </span>
-            </div>
-            <p class="text-secondary/80 mb-2">
-              Lu, X., Lin, Z., et al.
-            </p>
-            <p class="text-light/70 mb-4">
-              Manuscript in preparation for submission to NeuroImage: Clinical.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <button class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center" disabled>
-                <i class="fa fa-file-pdf-o mr-2"></i> PDF (Coming Soon)
+              <button class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center abstract-toggle" data-target="abstract-2">
+                <i class="fa fa-chevron-down mr-2"></i> Abstract
               </button>
+            </div>
+            <div class="mt-4 pt-4 border-t border-secondary/20 hidden" id="abstract-2">
+              <p class="text-light/80 italic">
+                Computer-Aided Design (CAD) plays a crucial role in industrial manufacturing, but it demands a high level of expertise from designers. To lower the entry barrier for designers and enhance design efficiency, we propose an intelligent agent for CAD conceptual design based on large language models (LLMs). Our agent can accept text and sketches as user inputs and interact with designers to clarify user requirements, resulting in a detailed requirement analysis. Subsequently, we construct a CAD code generation agent based on our novel open-closed imperative paradigm (OCIP) to effectively generate high-quality CAD code. During this process, the agent automatically improves the quality of the generated model through visual feedback. Ultimately, the high-quality code case is added to knowledge base for future reference by the agent. Experimental results demonstrate that our method can achieve state-of-the-art generation outcomes.
+              </p>
             </div>
           </div>
         </div>
@@ -442,26 +457,26 @@
     <!-- Projects Section -->
     <section id="projects" class="py-20 relative">
       <div class="container mx-auto px-4">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-light mb-12 text-center">
           <span class="text-secondary">Selected</span> Projects
         </h2>
         
         <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           <!-- Project Card 1 -->
           <div class="project-card group" data-category="medical">
             <div class="bg-glass border border-secondary/30 rounded-xl overflow-hidden transform hover:translate-y-[-8px] transition-all duration-500 hover:border-secondary/60">
               <div class="relative overflow-hidden">
-                <img src="https://picsum.photos/seed/boneage/600/400" alt="Bone Age Estimation Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
+                <img src="figures/boneage.png" alt="Bone Age Estimation Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
                 <div class="absolute bottom-0 left-0 p-4">
-                  <span class="bg-secondary/90 text-primary text-xs font-bold px-3 py-1 rounded-full">Deep Learning</span>
-                  <span class="bg-accent/90 text-white text-xs font-bold px-3 py-1 rounded-full ml-2">Medical Imaging</span>
+                  <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Deep Learning</span>
+                  <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">Medical Imaging</span>
                 </div>
               </div>
               
               <div class="p-6">
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300">End-to-End Bone Age Estimation</h3>
+                <h3 class="text-xl font-bold text-light mb-2 group-hover:text-secondary transition-colors duration-300">End-to-End Bone Age Estimation</h3>
                 <p class="text-light/70 mb-4">Developed an end-to-end model for bone age prediction using Dinov2, achieving MAE of 7 months. Ranked top 5% in Biomedical Image Processing course.</p>
                 
                 <div class="flex justify-between items-center">
@@ -469,7 +484,7 @@
                     <img src="https://picsum.photos/seed/team1/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
                   </div>
                   
-                  <a href="#" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
+                  <a href="docs/End-to-End Bone Age Estimation.pdf" target="_blank" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
                     View Details <i class="fa fa-arrow-right ml-2"></i>
                   </a>
                 </div>
@@ -481,16 +496,16 @@
           <div class="project-card group" data-category="hardware">
             <div class="bg-glass border border-secondary/30 rounded-xl overflow-hidden transform hover:translate-y-[-8px] transition-all duration-500 hover:border-secondary/60">
               <div class="relative overflow-hidden">
-                <img src="https://picsum.photos/seed/esp32/600/400" alt="Visually Impaired Guide System Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
+                <img src="figures/eyoeyes.png" alt="Visually Impaired Guide System Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
                 <div class="absolute bottom-0 left-0 p-4">
-                  <span class="bg-secondary/90 text-primary text-xs font-bold px-3 py-1 rounded-full">Embedded System</span>
-                  <span class="bg-accent/90 text-white text-xs font-bold px-3 py-1 rounded-full ml-2">IoT</span>
+                  <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Embedded System</span>
+                  <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">Healthcare</span>
                 </div>
               </div>
               
               <div class="p-6">
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-secondary transition-colors duration-300">Multimodal Guide System for Visually Impaired</h3>
+                <h3 class="text-xl font-bold text-light mb-2 group-hover:text-secondary transition-colors duration-300">Multimodal Guide System for Visually Impaired</h3>
                 <p class="text-light/70 mb-4">Built a voice-interactive navigation system using ESP32-S3, combining camera and ultrasonic sensors with vision-language models for obstacle detection.</p>
                 
                 <div class="flex justify-between items-center">
@@ -499,7 +514,65 @@
                     <img src="https://picsum.photos/seed/team3/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
                   </div>
                   
-                  <a href="#" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
+                  <a href="docs/EchoEyes.pdf" target="_blank" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
+                    View Details <i class="fa fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Project Card 3 -->
+          <div class="project-card group" data-category="hardware">
+            <div class="bg-glass border border-secondary/30 rounded-xl overflow-hidden transform hover:translate-y-[-8px] transition-all duration-500 hover:border-secondary/60">
+              <div class="relative overflow-hidden">
+                <img src="figures/stepcounter.png" alt="Step Counter Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 p-4">
+                  <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Embedded System</span>
+                  <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">IoT</span>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-light mb-2 group-hover:text-secondary transition-colors duration-300">Accelerometer-Based Step Counter</h3>
+                <p class="text-light/70 mb-4">Designed and implemented a 3-axis accelerometer-based step counter using 51 microcontroller and ADXL345 sensor with adaptive threshold detection.</p>
+                
+                <div class="flex justify-between items-center">
+                  <div class="flex -space-x-2">
+                    <img src="https://picsum.photos/seed/team4/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
+                  </div>
+                  
+                  <a href="https://github.com/LUXINGYU23/Step_count" target="_blank" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
+                    View Details <i class="fa fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Project Card 4 -->
+          <div class="project-card group" data-category="software">
+            <div class="bg-glass border border-secondary/30 rounded-xl overflow-hidden transform hover:translate-y-[-8px] transition-all duration-500 hover:border-secondary/60">
+              <div class="relative overflow-hidden">
+                <img src="figures/magic_world.png" alt="Maze Game Project Preview" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 p-4">
+                  <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Computer Graphics</span>
+                  <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">Game Development</span>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-light mb-2 group-hover:text-secondary transition-colors duration-300">Libgraphics-Based Maze Game</h3>
+                <p class="text-light/70 mb-4">Optimized and refactored Zhejiang University's libgraphics library based on Win32 API and developed an interactive maze game with enhanced graphics performance.</p>
+                
+                <div class="flex justify-between items-center">
+                  <div class="flex -space-x-2">
+                    <img src="https://picsum.photos/seed/team5/100" alt="Team Member" class="w-8 h-8 rounded-full border-2 border-primary">
+                  </div>
+                  
+                  <a href="https://github.com/LUXINGYU23/Magic-World" target="_blank" class="text-secondary hover:text-secondary/80 transition-colors duration-300 flex items-center">
                     View Details <i class="fa fa-arrow-right ml-2"></i>
                   </a>
                 </div>
@@ -511,16 +584,18 @@
     </section>
     
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-dark/50 relative">
-      <div class="container mx-auto px-4">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-12 text-center">
+    <section id="contact" class="py-20 relative">
+      <!-- Section Background Overlay -->
+      <div class="absolute inset-0 bg-dark/90 z-0"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-light mb-12 text-center">
           <span class="text-secondary">Get in</span> Touch
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Contact Info -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
-            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+            <h3 class="text-xl font-bold text-light mb-6 flex items-center">
               <i class="fa fa-paper-plane text-secondary mr-2"></i> Contact Information
             </h3>
             
@@ -561,26 +636,23 @@
                 </div>
                 <div>
                   <p class="text-sm text-light/70">WeChat</p>
-                  <p class="font-medium">xingyulu_987</p>
+                  <p class="font-medium">Lukid0130</p>
                 </div>
               </div>
             </div>
             
             <!-- Social Media Links -->
             <div class="mt-8">
-              <h4 class="text-lg font-bold text-white mb-4">Connect with Me</h4>
+              <h4 class="text-lg font-bold text-light mb-4">Connect with Me</h4>
               <div class="flex space-x-4">
-                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                <a href="https://github.com/LUXINGYU23" target="_blank" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
                   <i class="fa fa-github"></i>
                 </a>
-                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
-                  <i class="fa fa-linkedin"></i>
+                <a href="https://space.bilibili.com/501329490" target="_blank" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                  <i class="fa fa-television"></i>
                 </a>
-                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
-                  <i class="fa fa-twitter"></i>
-                </a>
-                <a href="#" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
-                  <i class="fa fa-weixin"></i>
+                <a href="https://www.xiaohongshu.com/user/profile/6325e7ce000000002303b582" target="_blank" class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-primary transition-all duration-300">
+                  <i class="fa fa-book"></i>
                 </a>
               </div>
             </div>
@@ -588,34 +660,35 @@
           
           <!-- Contact Form -->
           <div class="bg-glass border border-secondary/30 rounded-xl p-6 transform hover:translate-y-[-8px] transition-all duration-500 border-glow">
-            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+            <h3 class="text-xl font-bold text-light mb-6 flex items-center">
               <i class="fa fa-comment text-secondary mr-2"></i> Send Me a Message
             </h3>
             
-            <form id="contact-form">
+            <form id="contact-form" action="https://formspree.io/f/mpwlpjrd" method="POST">
               <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-light/80 mb-1">Your Name</label>
-                <input type="text" id="name" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light" placeholder="Enter your name">
+                <input type="text" id="name" name="name" class="w-full bg-primary border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light placeholder:text-light/50" placeholder="Enter your name" required>
               </div>
               
               <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-light/80 mb-1">Your Email</label>
-                <input type="email" id="email" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light" placeholder="Enter your email">
+                <input type="email" id="email" name="email" class="w-full bg-primary border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light placeholder:text-light/50" placeholder="Enter your email" required>
               </div>
               
               <div class="mb-4">
                 <label for="subject" class="block text-sm font-medium text-light/80 mb-1">Subject</label>
-                <input type="text" id="subject" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light" placeholder="Enter subject">
+                <input type="text" id="subject" name="subject" class="w-full bg-primary border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light placeholder:text-light/50" placeholder="Enter subject" required>
               </div>
               
               <div class="mb-6">
                 <label for="message" class="block text-sm font-medium text-light/80 mb-1">Message</label>
-                <textarea id="message" rows="5" class="w-full bg-dark/50 border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light resize-none" placeholder="Enter your message"></textarea>
+                <textarea id="message" name="message" rows="5" class="w-full bg-primary border border-secondary/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary/50 text-light resize-none placeholder:text-light/50" placeholder="Enter your message" required></textarea>
               </div>
               
               <button type="submit" class="w-full bg-secondary hover:bg-secondary/80 text-primary font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
                 <i class="fa fa-paper-plane mr-2"></i> Send Message
               </button>
+              <p id="form-status" class="text-center mt-4"></p>
             </form>
           </div>
         </div>
@@ -624,8 +697,10 @@
   </main>
   
   <!-- Footer -->
-  <footer class="bg-dark py-10 border-t border-secondary/30">
-    <div class="container mx-auto px-4 text-center">
+  <footer class="py-10 relative border-t border-secondary/30">
+    <!-- Footer Background Overlay -->
+    <div class="absolute inset-0 bg-dark/90 z-0"></div>
+    <div class="container mx-auto px-4 text-center relative z-10">
       <p class="text-light/70">© 2025 Xingyu Lu. All rights reserved.</p>
       <p class="text-light/50 text-sm mt-2">Designed with <i class="fa fa-heart text-secondary"></i> and <span class="text-secondary">Tailwind CSS</span></p>
     </div>
@@ -734,6 +809,31 @@
           }
         });
       });
+
+      // Theme toggle
+      const themeToggle = document.getElementById('theme-toggle');
+      const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+      const htmlEl = document.documentElement;
+
+      function toggleTheme() {
+        htmlEl.classList.toggle('light-mode');
+        const isLight = htmlEl.classList.contains('light-mode');
+        const icon = isLight ? '<i class="fa fa-sun-o"></i>' : '<i class="fa fa-moon-o"></i>';
+        themeToggle.innerHTML = icon;
+        mobileThemeToggle.innerHTML = icon;
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        updateParticles(isLight);
+      }
+
+      themeToggle.addEventListener('click', toggleTheme);
+      mobileThemeToggle.addEventListener('click', toggleTheme);
+
+      // Check for saved theme in local storage
+      if (localStorage.getItem('theme') === 'light') {
+        htmlEl.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';
+        mobileThemeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';
+      }
       
       // Skills chart
       const ctx = document.getElementById('skillsChart');
@@ -797,27 +897,50 @@
       
       // Contact form submission
       const contactForm = document.getElementById('contact-form');
+      const formStatus = document.getElementById('form-status');
+
       if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
           e.preventDefault();
           
-          // Here you would typically send the form data to a server
-          // For demonstration purposes, we'll just show a success message
           const submitButton = this.querySelector('button[type="submit"]');
           const originalText = submitButton.innerHTML;
           
           submitButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> Sending...';
           submitButton.disabled = true;
+          formStatus.textContent = '';
+
+          const formData = new FormData(this);
           
-          // Simulate form submission
-          setTimeout(() => {
-            submitButton.innerHTML = '<i class="fa fa-check mr-2"></i> Message Sent!';
-            setTimeout(() => {
-              submitButton.innerHTML = originalText;
-              submitButton.disabled = false;
+          try {
+            const response = await fetch(this.action, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Accept': 'application/json'
+              }
+            });
+
+            if (response.ok) {
+              formStatus.textContent = "Thanks for your message! I'll get back to you soon.";
+              formStatus.className = 'text-green-400';
               contactForm.reset();
-            }, 2000);
-          }, 1500);
+            } else {
+              const data = await response.json();
+              if (Object.hasOwn(data, 'errors')) {
+                formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+              } else {
+                formStatus.textContent = "Oops! There was a problem submitting your form";
+              }
+              formStatus.className = 'text-red-400';
+            }
+          } catch (error) {
+            formStatus.textContent = "Oops! There was a problem submitting your form";
+            formStatus.className = 'text-red-400';
+          } finally {
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+          }
         });
       }
       
@@ -826,7 +949,7 @@
         particlesJS('particles-js', {
           particles: {
             number: {
-              value: 80,
+              value: 60,
               density: {
                 enable: true,
                 value_area: 800
@@ -925,6 +1048,19 @@
           },
           retina_detect: true
         });
+
+        function updateParticles(isLight) {
+          const newColor = isLight ? '#4f46e5' : '#00F5D4';
+          if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+            const pJS = window.pJSDom[0].pJS;
+            pJS.particles.color.value = newColor;
+            pJS.particles.line_linked.color = newColor;
+            pJS.fn.particlesRefresh();
+          }
+        }
+
+        // Set initial particle color based on theme
+        updateParticles(htmlEl.classList.contains('light-mode'));
       }
     });
   </script>
