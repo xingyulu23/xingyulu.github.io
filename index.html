@@ -94,6 +94,16 @@
         from { border-right-color: var(--color-secondary); }
         to { border-right-color: transparent; }
       }
+      .bg-gradient-to-r {
+        background: linear-gradient(to right, var(--color-secondary), var(--color-accent));
+      }
+      .bg-clip-text {
+        background-clip: text;
+        -webkit-background-clip: text;
+      }
+      .text-transparent {
+        color: transparent;
+      }
     }
   </style>
 </head>
@@ -143,26 +153,31 @@
   <!-- Main Content -->
   <main class="relative z-10">
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div class="container mx-auto px-4 py-20 text-center">
-        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-4 text-light dark:animate-glow">
-          Xingyu Lu
-        </h1>
-        <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-secondary mb-8 max-w-3xl mx-auto">
-          <span class="border-r-2 border-secondary/75 px-1">Biomedical Engineering</span> × 
-          <span class="border-r-2 border-secondary/75 px-1">AI Research</span> × 
-          <span class="px-1">Software Development</span>
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
-          <a href="#projects" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
-            <i class="fa fa-cubes mr-2"></i> View Projects
-          </a>
-          <a href="#publications" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
-            <i class="fa fa-file-text-o mr-2"></i> Read Publications
-          </a>
-          <a href="#contact" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
-            <i class="fa fa-envelope-o mr-2"></i> Contact Me
-          </a>
+    <section class="min-h-screen flex items-center relative overflow-hidden">
+      <div class="container mx-auto px-4 py-20">
+        <div class="max-w-4xl">
+          <h1 class="text-[clamp(4rem,12vw,8rem)] font-bold mb-2 leading-tight">
+            <span class="text-light dark:animate-glow">Hello!</span><br>
+            <span class="text-light">I'm </span><span class="text-secondary bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Xingyu Lu</span>
+          </h1>
+          <p class="text-[clamp(1.5rem,4vw,2.2rem)] text-light/80 mb-8 mt-6">
+            Biomedical Engineering × AI Research<br>
+            Computer Graphics × Software Development
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 mt-12">
+            <a href="#about" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center whitespace-nowrap text-lg">
+              <i class="fa fa-user mr-2"></i> About Me
+            </a>
+            <a href="#publications" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center whitespace-nowrap text-lg">
+              <i class="fa fa-file-text-o mr-2"></i> Read Publications
+            </a>
+            <a href="#projects" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center whitespace-nowrap text-lg">
+              <i class="fa fa-cubes mr-2"></i> View Projects
+            </a>
+            <a href="#contact" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/50 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center whitespace-nowrap text-lg">
+              <i class="fa fa-envelope-o mr-2"></i> Contact Me
+            </a>
+          </div>
         </div>
         
         <!-- Scroll Down Indicator -->
@@ -473,6 +488,9 @@
                   <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Deep Learning</span>
                   <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">Medical Imaging</span>
                 </div>
+                <div class="absolute top-4 right-4">
+                  <span class="bg-primary text-secondary text-xs font-bold px-3 py-1 rounded-md border border-secondary/50">May 2025</span>
+                </div>
               </div>
               
               <div class="p-6">
@@ -501,6 +519,9 @@
                 <div class="absolute bottom-0 left-0 p-4">
                   <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Embedded System</span>
                   <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">Healthcare</span>
+                </div>
+                <div class="absolute top-4 right-4">
+                  <span class="bg-primary text-secondary text-xs font-bold px-3 py-1 rounded-md border border-secondary/50">Jul 2025</span>
                 </div>
               </div>
               
@@ -532,6 +553,9 @@
                   <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Embedded System</span>
                   <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">IoT</span>
                 </div>
+                <div class="absolute top-4 right-4">
+                  <span class="bg-primary text-secondary text-xs font-bold px-3 py-1 rounded-md border border-secondary/50">Aug 2024</span>
+                </div>
               </div>
               
               <div class="p-6">
@@ -560,6 +584,9 @@
                 <div class="absolute bottom-0 left-0 p-4">
                   <span class="bg-secondary text-primary text-xs font-bold px-3 py-1 rounded-md border border-secondary">Computer Graphics</span>
                   <span class="bg-accent text-light text-xs font-bold px-3 py-1 rounded-md border border-accent ml-2">Game Development</span>
+                </div>
+                <div class="absolute top-4 right-4">
+                  <span class="bg-primary text-secondary text-xs font-bold px-3 py-1 rounded-md border border-secondary/50">Jun 2023</span>
                 </div>
               </div>
               
