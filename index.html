@@ -427,6 +427,7 @@
             <p class="text-light/70 mb-4">
               arXiv preprint arXiv:2503.18549. Submitted to Computer-Aided Design.
             </p>
+            
             <div class="flex flex-wrap gap-2">
               <a href="https://arxiv.org/abs/2503.18549" target="_blank" class="bg-primary/80 hover:bg-primary text-secondary px-4 py-2 rounded-lg transition-all duration-300 flex items-center">
                 <i class="fa fa-file-pdf-o mr-2"></i> arXiv
@@ -436,9 +437,14 @@
               </button>
             </div>
             <div class="mt-4 pt-4 border-t border-secondary/20 hidden" id="abstract-1">
-              <p class="text-light/80 italic">
+              <p class="text-light/80 italic mb-4">
                 A CAD command sequence is a typical parametric design paradigm in 3D CAD systems where a model is constructed by overlaying 2D sketches with operations such as extrusion, revolution, and Boolean operations. Although there is growing academic interest in the automatic generation of command sequences, existing methods and datasets only support operations such as 2D sketching, extrusion,and Boolean operations. This limitation makes it challenging to represent more complex geometries. In this paper, we present a reinforcement learning (RL) training environment (gym) built on a CAD geometric engine. Given an input boundary representation (B-Rep) geometry, the policy network in the RL algorithm generates an action. This action, along with previously generated actions, is processed within the gym to produce the corresponding CAD geometry, which is then fed back into the policy network. The rewards, determined by the difference between the generated and target geometries within the gym, are used to update the RL network. Our method supports operations beyond sketches, Boolean, and extrusion, including revolution operations. With this training gym, we achieve state-of-the-art (SOTA) quality in generating command sequences from B-Rep geometries.
               </p>
+              
+              <!-- Poster Preview Image -->
+              <div class="mt-4">
+                <img src="figures/rlcad_pipline.png" alt="RLCAD Pipeline Overview" class="w-full rounded-lg border border-secondary/20 hover:border-secondary/40 transition-all duration-300">
+              </div>
             </div>
           </div>
           
